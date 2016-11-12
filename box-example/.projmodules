@@ -1,3 +1,6 @@
+[submodule "roles/sa-vnc-remote-desktop"]
+        path = roles/sa-vnc-remote-desktop
+        url = https://github.com/softasap/sa-vnc-remote-desktop.git
 [submodule "roles/sa-smarthome-ivideon"]
         path = roles/sa-smarthome-ivideon
         url = https://github.com/softasap/sa-smarthome-ivideon.git

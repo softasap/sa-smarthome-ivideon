@@ -10,6 +10,10 @@
 
   roles:
      - {
+         role: "sa-vnc-remote-desktop"
+       }
+
+     - {
          role: "sa-smarthome-ivideon"
        }
 
