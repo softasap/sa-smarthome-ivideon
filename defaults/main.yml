@@ -1,0 +1,11 @@
+---
+# defaults file for sa-smarthome-ivideon
+
+ivideon_user: "{{ansible_user_id}}"
+ivideon_mode: gui # headless | gui
+
+ivideon_config_path: /home/{{ ivideon_user }}/.IvideonServer
+ivideon_archieve_path: /home/{{ ivideon_user }}..IvideonServer/archive
+ivideon_log_path: "{{ivideon_config_path}}"
+
+ivideon_cameras: []

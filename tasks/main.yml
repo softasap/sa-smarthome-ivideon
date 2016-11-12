@@ -1,0 +1,3 @@
+---
+# tasks file for sa-smarthome-ivideon
+  - include: tasks_ivideon.yml

@@ -1,0 +1,53 @@
+---
+  - name: IVIDEON | Add repo key
+    apt_key: url=http://packages.ivideon.com/ubuntu/keys/ivideon.key state=present
+    become: yes
+    tags:
+      - ivideon
+
+  - name: IVIDEON | Add ivideon ubuntu repository
+    apt_repository:  repo="deb http://packages.ivideon.com/ubuntu stable non-free"  state=present  update_cache=yes
+    become: yes
+    tags:
+      - ivideon
+
+
+  - name: IVIDEON | install ivideon headless
+    apt: name=ivideon-server-headless state=latest
+    when: ivideon_mode="headless"
+    become: yes
+    tags:
+      - ivideon
+
+  - name: IVIDEON | install ivideon gui
+    apt: name=ivideon-video-server state=latest
+    when: ivideon_mode="gui"
+    become: yes
+    tags:
+      - ivideon
+
+  - name: IVIDEON | create folders
+    file: path="{{ item }}"  state=directory  mode=0750  owner="{{ ivideon_user }}"
+    with_items:
+      - "{{ivideon_config_path}}"
+      - "{{ivideon_archieve_path}}"
+      - "{{ivideon_log_path}}"
+
+  - name: IVIDEON | Gather stats about hdd for recording
+    stat:  path="{{ivideon_archieve_path}}"
+    register: ivideon_archieve_stats
+    become: yes
+
+  - name: IVIDEON |  get volume size
+    shell: "df -Ph -BM {{ivideon_archieve_path}} | grep 'dev' | awk '{print ($2-30)*1024 }'"
+    register: ivideon_size_limit_raw
+    become: yes
+    tags:
+      - ivideon
+
+  - name: IVIDEON |  get volume size (register fact)
+    set_fact:
+      - ivideon_size_limit : "{{ivideon_size_limit_raw.stdout}}"
+    become: yes
+    tags:
+      - ivideon

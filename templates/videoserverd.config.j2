@@ -1,0 +1,44 @@
+{
+   "archive" : {
+      "maxEventLogSize" : 20480,
+      "path" : "{{ivideon_archieve_path}}",
+      "sizeLimit" : {{ ivideon_size_limit }},
+      "sizeToCleanup" : 512,
+      "useArchive" : true,
+      "webcamBitRate" : 2048,
+      "webcamFrameRate" : 5,
+      "webcamVideoFormat" : 1
+   },
+   "cameras" : [
+
+      {% for camera in ivideon_cameras %}
+    {
+         "id" : {{ loop.index }},
+         "mdSensitivity" : 50,
+         "name" : "{{ camera.name }}",
+         "recordType" : "motion",
+         "rtspTransport" : "auto",
+         "urlHigh" : "{{ camera.urlHigh }}",
+         "useCameraMotionDetector" : false,
+         "useSound" : true
+      }{% if loop.last == False %},{% endif %}
+      {% endfor %}
+
+   ],
+   "externalScheduleFile" : "{{ivideon_config_path}}/schedule.json",
+   "localView" : {
+      "passwordHash" : "{{ ivideonpw|hash('md5') }}",
+      "proxyPort" : 3101,
+      "streamerPort" : 8080
+   },
+   "logging" : {
+      "isTruncate" : false,
+      "path" : "{{ivideon_log_path}}/service.log"
+   },
+   "network" : {
+      "ivideonProxyHost" : "proxy.ivideon.com"
+   },
+   "system" : {
+      "cwd" : "{{ivideon_config_path}}"
+   }
+}

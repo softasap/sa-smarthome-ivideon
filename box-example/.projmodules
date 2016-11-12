@@ -1,0 +1,4 @@
+[submodule "roles/sa-smarthome-ivideon"]
+        path = roles/sa-smarthome-ivideon
+        url = https://github.com/softasap/sa-smarthome-ivideon.git
+
