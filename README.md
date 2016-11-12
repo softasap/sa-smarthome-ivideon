@@ -19,7 +19,27 @@ Advanced:
 ```YAML
   roles:
     - {
-        role: "sa-smarthome-ivideon"
+        role: "sa-smarthome-ivideon",
+        ivideon_user: "{{ansible_user_id}}",
+        ivideon_mode: gui, # headless | gui
+
+        ivideon_localview_password: password, # set password for local view
+
+        ivideon_config_path: "/home/{{ ivideon_user }}/.IvideonServer",
+        ivideon_archieve_path: "/home/{{ ivideon_user }}/.IvideonServer/archive",
+        ivideon_log_path: "/home/{{ ivideon_user }}/.IvideonServer",
+
+        ivideon_cameras: [],
+
+        option_ivideon_cloud: true,
+        option_ivideon_cloud_registerserver: true,
+
+        ivideon_cloud_email: youremail@domain.com,
+        ivideon_cloud_password_hash: "somehashforyourcurrentpassword",
+        ivideon_cloud_account_id: 100000000000,
+        ivideon_cloud_account_guid: "{778dde95-0c53-4d5a-8101-8a9b5afe941e}", # some guid associated with your server
+        ivideon_cloud_servername: "myserver"
+
       }
 ```
 
