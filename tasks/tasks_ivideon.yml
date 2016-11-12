@@ -63,5 +63,5 @@
 
 
   - name: IVIDEON | Register current server on cloud API
-    shell: "/opt/ivideon/ivideon-server/videoserver --config-filename={{ivideon_config_path}}/videoserverd.config --attach --email="{{ivideon_cloud_email}}" --server-name=\"{{ivideon_cloud_servername}}\""
+    shell: "/opt/ivideon/ivideon-server/videoserver --config-filename={{ivideon_config_path}}/videoserverd.config --attach --email=\"{{ivideon_cloud_email}}\" --server-name=\"{{ivideon_cloud_servername}}\""
     when: option_ivideon_cloud_registerserver
