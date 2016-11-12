@@ -45,9 +45,9 @@
     tags:
       - ivideon
 
-  - name: IVIDEON |  get volume size (register fact)
+  - name: IVIDEON |  get volume size - register fact
     set_fact:
-      - ivideon_size_limit : "{{ivideon_size_limit_raw.stdout}}"
+      - ivideon_size_limit: "{{ivideon_size_limit_raw.stdout}}"
     become: yes
     tags:
       - ivideon
