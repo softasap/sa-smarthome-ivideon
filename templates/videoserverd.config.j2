@@ -1,8 +1,18 @@
 {
+{% if option_ivideon_cloud != False %}
+    "account" : {
+       "email" : "{{ivideon_cloud_email}}",
+       "password" : "{{ivideon_cloud_password_hash}}",
+       "serverName" : "{{ivideon_cloud_servername}}",
+       "uid" : "{{ivideon_cloud_account_guid}}",
+       "uin" : {{ivideon_cloud_account_id}}
+    },
+
+{% endif %}
    "archive" : {
       "maxEventLogSize" : 20480,
       "path" : "{{ivideon_archieve_path}}",
-      "sizeLimit" : {{ ivideon_size_limit }},
+      "sizeLimit" : {{ ivideon_size_limit_raw.stdout }},
       "sizeToCleanup" : 512,
       "useArchive" : true,
       "webcamBitRate" : 2048,
@@ -16,8 +26,8 @@
          "id" : {{ loop.index }},
          "mdSensitivity" : 50,
          "name" : "{{ camera.name }}",
-         "recordType" : "motion",
-         "rtspTransport" : "auto",
+         "recordType" : "{{ camera.recordType | default('motion') }}",
+         "rtspTransport" : "{{ camera.rtspTransport | default('auto') }}",
          "urlHigh" : "{{ camera.urlHigh }}",
          "useCameraMotionDetector" : false,
          "useSound" : true
@@ -27,18 +37,20 @@
    ],
    "externalScheduleFile" : "{{ivideon_config_path}}/schedule.json",
    "localView" : {
-      "passwordHash" : "{{ ivideonpw|hash('md5') }}",
+      "passwordHash" : "{{ ivideon_localview_password|hash('md5') }}",
       "proxyPort" : 3101,
       "streamerPort" : 8080
    },
    "logging" : {
-      "isTruncate" : false,
+      "isTruncate" : true,
       "path" : "{{ivideon_log_path}}/service.log"
    },
    "network" : {
-      "ivideonProxyHost" : "proxy.ivideon.com"
+      "ivideonProxyHost" : "proxy.ivideon.com",
+      "useHttpProxy" : false
    },
    "system" : {
+      "cloudConfig" : true,
       "cwd" : "{{ivideon_config_path}}"
    }
 }

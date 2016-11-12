@@ -1,3 +1,4 @@
 ---
 # tasks file for sa-smarthome-ivideon
+  - include: use/__detect_init_system.yml
   - include: tasks_ivideon.yml

@@ -45,9 +45,23 @@
     tags:
       - ivideon
 
-#  - name: IVIDEON |  get volume size - register fact
-#    set_fact:
-#      - ivideon_size_limit: "{{ivideon_size_limit_raw.stdout}}"
-#    become: yes
-#    tags:
-#      - ivideon
+  - name: IVIDEON |  Configure service startup (upstart)
+    shell: /opt/ivideon/ivideon-server/init_ctl install {{ivideon_user}} {{ivideon_config_path}}/videoserverd.config
+    when: upstart_system == "upstart"
+    become: yes
+    tags:
+      - ivideon
+
+  - name: IVIDEON |  Check videoserverd.config exists
+    stat: path="{{ivideon_config_path}}/videoserverd.config"
+    register: videoserverd_config_exists
+    become: yes
+
+  - name: IVIDEON | create ivideon config, if absent
+    template: src="{{role_dir}}/templatesvideoserverd.config.j2"  dest={{ivideon_config_path}}/videoserverd.config mode=0640 owner={{ ivideon_user }}"
+    when: videoserverd_config_exists.stat.exists == False
+
+
+  - name: IVIDEON | Register current server on cloud API
+    shell: "/opt/ivideon/ivideon-server/videoserver --config-filename={{ivideon_config_path}}/videoserverd.config --attach --email="{{ivideon_cloud_email}}" --server-name=\"My First Server\""
+    when: option_ivideon_cloud_registerserver
