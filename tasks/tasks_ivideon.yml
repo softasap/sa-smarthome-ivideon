@@ -14,14 +14,14 @@
 
   - name: IVIDEON | install ivideon headless
     apt: name=ivideon-server-headless state=latest
-    when: ivideon_mode="headless"
+    when: ivideon_mode == "headless"
     become: yes
     tags:
       - ivideon
 
   - name: IVIDEON | install ivideon gui
     apt: name=ivideon-video-server state=latest
-    when: ivideon_mode="gui"
+    when: ivideon_mode == "gui"
     become: yes
     tags:
       - ivideon
@@ -45,9 +45,9 @@
     tags:
       - ivideon
 
-  - name: IVIDEON |  get volume size - register fact
-    set_fact:
-      - ivideon_size_limit: "{{ivideon_size_limit_raw.stdout}}"
-    become: yes
-    tags:
-      - ivideon
+#  - name: IVIDEON |  get volume size - register fact
+#    set_fact:
+#      - ivideon_size_limit: "{{ivideon_size_limit_raw.stdout}}"
+#    become: yes
+#    tags:
+#      - ivideon
