@@ -58,7 +58,7 @@
 
   - name: IVIDEON |  Configure service startup (upstart)
     shell: /opt/ivideon/ivideon-server/install_services.sh install {{item}} {{ivideon_user}} {{ivideon_config_path}}/videoserverd.config
-    when: upstart_system == "upstart"
+    when: upstart_system == "upstart" and docker_test is not defined
     with_items:
       - "videoserver"
       - "remote_svc"
