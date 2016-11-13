@@ -45,16 +45,6 @@
     tags:
       - ivideon
 
-  - name: IVIDEON |  Configure service startup (upstart)
-    shell: /opt/ivideon/ivideon-server/install_services.sh install {{item}} {{ivideon_user}} {{ivideon_config_path}}/videoserverd.config
-    when: upstart_system == "upstart"
-    with_items:
-      - "videoserver"
-      - "remote_svc"
-    become: yes
-    tags:
-      - ivideon
-
   - name: IVIDEON |  Check videoserverd.config exists
     stat: path="{{ivideon_config_path}}/videoserverd.config"
     register: videoserverd_config_exists
@@ -65,6 +55,16 @@
     when: videoserverd_config_exists.stat.exists == False
     become: yes    
 
+
+  - name: IVIDEON |  Configure service startup (upstart)
+    shell: /opt/ivideon/ivideon-server/install_services.sh install {{item}} {{ivideon_user}} {{ivideon_config_path}}/videoserverd.config
+    when: upstart_system == "upstart"
+    with_items:
+      - "videoserver"
+      - "remote_svc"
+    become: yes
+    tags:
+      - ivideon
 
   - name: IVIDEON | Register current server on cloud API
     shell: "/opt/ivideon/ivideon-server/videoserver --config-filename={{ivideon_config_path}}/videoserverd.config --attach --email=\"{{ivideon_cloud_email}}\" --server-name=\"{{ivideon_cloud_servername}}\""
