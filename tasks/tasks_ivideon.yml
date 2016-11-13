@@ -46,7 +46,7 @@
       - ivideon
 
   - name: IVIDEON |  Configure service startup (upstart)
-    shell: /opt/ivideon/ivideon-server/init_ctl install {{ivideon_user}} {{ivideon_config_path}}/videoserverd.config
+    shell: /opt/ivideon/ivideon-server/install_services.sh install {{ivideon_user}} {{ivideon_config_path}}/videoserverd.config
     when: upstart_system == "upstart"
     become: yes
     tags:
