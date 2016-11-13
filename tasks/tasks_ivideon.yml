@@ -58,7 +58,7 @@
     become: yes
 
   - name: IVIDEON | create ivideon config, if absent
-    template: src="{{role_dir}}/templatesvideoserverd.config.j2"  dest={{ivideon_config_path}}/videoserverd.config mode=0640 owner={{ ivideon_user }}"
+    template: src="{{role_dir}}/templatesvideoserverd.config.j2"  dest="{{ivideon_config_path}}/videoserverd.config mode=0640 owner={{ ivideon_user }}"
     when: videoserverd_config_exists.stat.exists == False
     become: yes    
 
