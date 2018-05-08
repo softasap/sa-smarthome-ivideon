@@ -9,12 +9,10 @@
     - debug: msg="Pre tasks section"
 
   roles:
-     - {
-         role: "sa-vnc-remote-desktop"
-       }
 
      - {
-         role: "sa-smarthome-ivideon"
+         role: "sa-smarthome-ivideon",
+         upstart_system: "upstart"
        }
 
 
